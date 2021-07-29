@@ -1,0 +1,40 @@
+:root {
+    --darkest: #06061e;
+    --background: #f4f4f4;
+    --red: #fb2a3c;
+    --green: #22ec15;
+    --text: #3e3e3e;
+    --text-light: #686767;
+    --input-backgroun: #f7f7f7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    @media (max-width: 1080px){
+        font-size: 93.75%;
+    } 
+
+    @media (max-width: 720px) {
+        font-size: 87.5%;
+    } 
+}
+  
+  body {
+    font: 16px "Roboto", Arial, sans-serif;
+    color: #121214;
+    background: var(--background);
+  }
+  
+  input, textarea {
+    font-family: "Roboto";
+  }
+
+  button {
+      cursor: pointer;
+  }
+  
