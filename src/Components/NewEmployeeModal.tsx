@@ -1,6 +1,8 @@
 import { FormEvent, useState } from 'react';
-import Modal from 'react-modal';
+import { IoClose } from 'react-icons/io5';
 import { api } from '../services/api';
+import Modal from 'react-modal';
+
 import '../styles/newEmployeeModal.scss';
 
 Modal.setAppElement('#root');
@@ -24,15 +26,10 @@ export function NewEmployeeModal({isOpen, onRequestClose} : NewEmployeeModalProp
         api.post('funcionarios', {
             username: email,
             password: password,
-            deleted: null,
             nome: name,
-            ativo: true,
             online: isOnline,
-            registrado: true,
             salario: salary,
-            cargo: employeePosition,
-            dataPagamento: "2021-06-23",
-            cor: "#f44336"
+            cargo: employeePosition
         },
         {
             headers: {
@@ -61,7 +58,9 @@ export function NewEmployeeModal({isOpen, onRequestClose} : NewEmployeeModalProp
             className="react-modal-content"
         >
             <div className="top">
-                <button onClick={onRequestClose}>X</button>
+                <button onClick={onRequestClose}>
+                    <IoClose />
+                </button>
                 <h4>Funcionário</h4>
             </div>
 

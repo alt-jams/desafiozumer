@@ -1,3 +1,6 @@
+import { HiDotsVertical } from 'react-icons/hi';
+import { MdSmartphone } from 'react-icons/md';
+
 import '../styles/employeeSection.scss';
 
 type EmployeeSectionProps = {
@@ -5,7 +8,7 @@ type EmployeeSectionProps = {
     name: string;
     cargo: string;
     isOnline: boolean;
-    setOnlineStatus: (id: number) => void;
+    setOnlineStatus: (id: number, isOnline: boolean) => void;
 }
 
 export function EmployeeSection({ id, name, cargo, isOnline, setOnlineStatus } : EmployeeSectionProps) {
@@ -13,7 +16,8 @@ export function EmployeeSection({ id, name, cargo, isOnline, setOnlineStatus } :
         <section key={id}>
             <div className="user-data">
                 <div className="user-img"></div>
-                <div>
+                {  cargo === "Entregador" || cargo === "Atendente" ? <MdSmartphone size={25} color="#929292"/> : ''}
+                <div className="user-name">
                     <span>{name}
                         <div className = { isOnline ? "is-online-dot" : "isnt-online-dot"}></div>
                     </span>
@@ -26,9 +30,10 @@ export function EmployeeSection({ id, name, cargo, isOnline, setOnlineStatus } :
                 <p>{isOnline ? 'Online' : 'Offline' }</p>
                 <label className="toggle">
                     
-                    <input type="checkbox" className={isOnline ? 'online' : ''} onClick={() => setOnlineStatus(id)}/>
+                    <input type="checkbox" className={isOnline ? 'online' : ''} onClick={() => setOnlineStatus(id, isOnline)}/>
                     <span className="slider"></span>
                 </label>
+                <HiDotsVertical size={20} color="#929292"/> 
             </div>  
         </section>
     );

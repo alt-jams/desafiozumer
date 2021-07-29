@@ -7,6 +7,7 @@ section {
     
     .user-data{
         display:flex;
+        align-items: center;
         width: 25%;
         
         .user-img {
@@ -15,6 +16,10 @@ section {
             background: #b6b6b6;
             border-radius: 10rem;
             margin-right: 1rem;
+        }
+
+        .user-name {
+            margin-left: 0.5rem;
         }
         
         div span {
@@ -51,7 +56,7 @@ section {
         gap: 0.5rem;
 
         @media (max-width: 720px) {
-            margin-left: 50%;
+            margin-left: 48%;
         } 
 
         p {
