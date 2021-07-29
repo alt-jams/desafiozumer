@@ -2,56 +2,5 @@ main {
     margin-top: 5rem;
 }
 
-section {
-    margin: 1rem 1.5rem;
-    padding: 0.8rem;
-    background: #FFF;
-    border-radius: 0.25rem;
-    display: flex;
-    
-    .user-data{
-        display:flex;
-        
-        .user-img {
-            padding: 2rem;
-            max-width: 2rem;
-            background: #b6b6b6;
-            border-radius: 10rem;
-            margin-right: 1rem;
-        }
-        
-        div span {
-            font-weight: 500;
-            color: var(--text);
-        }
 
-        div p {
-            font-size: 1rem;
-            color: var(--text-light);
-            margin-top: 0.25rem;
-        }
-    }
-
-    .is-online {
-        margin-left: 75%;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-
-        @media (max-width: 720px) {
-            margin-left: 45%;
-        } 
-
-        p {
-            color: var(--text-light);
-        }
-
-        
-    }
-
-}
-
-div {
-    margin: auto 0;
-}
 
