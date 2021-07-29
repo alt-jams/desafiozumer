@@ -1,7 +1,11 @@
 
 import '../styles/header.scss';
 
-export function Header() {
+type HeaderProps = {
+    openNewEmployeeModal: () => void;
+}
+
+export function Header({ openNewEmployeeModal } : HeaderProps) {
     return (
         <>
             <header>
@@ -10,7 +14,7 @@ export function Header() {
                     Gerencie seus funcionários, especialmente os atendentes
                 </strong>
             </header>
-            <button className="new-employee">
+            <button className="new-employee" onClick={openNewEmployeeModal}>
                 NOVO FUNCIONÁRIO
             </button>
             
