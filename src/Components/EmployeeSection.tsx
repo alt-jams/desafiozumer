@@ -6,22 +6,22 @@ import '../styles/employeeSection.scss';
 type EmployeeSectionProps = {
     id: number;
     name: string;
-    cargo: string;
+    position: string;
     isOnline: boolean;
     setOnlineStatus: (id: number, isOnline: boolean) => void;
 }
 
-export function EmployeeSection({ id, name, cargo, isOnline, setOnlineStatus } : EmployeeSectionProps) {
+export function EmployeeSection({ id, name, position, isOnline, setOnlineStatus } : EmployeeSectionProps) {
     return (
         <section key={id}>
             <div className="user-data">
                 <div className="user-img"></div>
-                {  cargo === "Entregador" || cargo === "Atendente" ? <MdSmartphone size={25} color="#929292"/> : ''}
+                {  position === "Entregador" || position === "Atendente" ? <MdSmartphone size={25} color="#929292"/> : ''}
                 <div className="user-name">
                     <span>{name}
                         <div className = { isOnline ? "is-online-dot" : "isnt-online-dot"}></div>
                     </span>
-                    <p>{cargo}</p>
+                    <p>{position}</p>
                 </div>
                 
             </div>

@@ -8,7 +8,7 @@ section {
     .user-data{
         display:flex;
         align-items: center;
-        width: 25%;
+        width: 40%;
         
         .user-img {
             padding: 2rem;
@@ -56,7 +56,7 @@ section {
         gap: 0.5rem;
 
         @media (max-width: 720px) {
-            margin-left: 48%;
+            margin-left: 32%;
         } 
 
         p {
