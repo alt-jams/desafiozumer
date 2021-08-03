@@ -16,7 +16,6 @@ export function Header({ openNewEmployeeModal } : HeaderProps) {
             <button className="new-employee" onClick={openNewEmployeeModal}>
                 NOVO FUNCIONÁRIO
             </button>
-            
         </>
     );
 }

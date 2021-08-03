@@ -15,7 +15,7 @@ export function EmployeeSection({ id, name, position, isOnline} : EmployeeSectio
         <section key={id}>
             <div className="user-data">
                 <div className="user-img"></div>
-                {  position === "Entregador" || position === "Atendente" ? <MdSmartphone size={25} color="#929292"/> : ''}
+                { position === "Entregador" || position === "Atendente" ? <MdSmartphone size={25} color="#929292"/> : ''}
                 <div className="user-name">
                     <span>{name}
                         <div className = { isOnline ? "is-online-dot" : "isnt-online-dot"}></div>

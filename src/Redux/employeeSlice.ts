@@ -32,5 +32,24 @@ export const setOnlineStatus = ( employeeId: number, isOnline: boolean) => async
     dispatch( updateEmployees(response.data));
 }
 
+    export const createNewEmployee = ( email: string,
+                                    password: string,
+                                    name: string,
+                                    isOnline: boolean,
+                                    salary: number,
+                                    position: string
+    ) => async (dispatch: (arg0: { payload: any; type: string }) => void) => {
+        await api.post('funcionarios', {
+            username: email,
+            password: password,
+            nome: name,
+            online: isOnline,
+            salario: salary,
+            cargo: position
+        });
+
+        const response = await api.get<Employee[]>('funcionarios');
+        dispatch( updateEmployees(response.data));
+}
 
 
