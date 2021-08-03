@@ -11,14 +11,14 @@ export function EmployeeListing() {
 
     useEffect(() => { 
         dispatch(getEmployees());
-    }, [employees]);
+    }, [dispatch]);
 
     return (
         <main>
             { employees.map(employee => {
                 return (
                     <EmployeeSection 
-                        key={ employee.idFuncionario }
+                        key={employee.idFuncionario}
                         id={employee.idFuncionario}
                         name={employee.nome}
                         position={employee.cargo}

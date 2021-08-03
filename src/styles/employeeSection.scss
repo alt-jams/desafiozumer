@@ -61,7 +61,16 @@ section {
 
         p {
             color: var(--text-light);
-        }    
+        } 
+        
+        button {
+            background: transparent;
+            border: 0;
+
+            &:hover {
+                filter: brightness(0.8);
+            }
+        }
     }
 }
 

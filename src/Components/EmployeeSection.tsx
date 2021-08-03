@@ -1,8 +1,8 @@
-import { HiDotsVertical } from 'react-icons/hi';
+import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 import { MdSmartphone } from 'react-icons/md';
 
 import { useAppDispatch } from '../Redux/hooks';
-import { setOnlineStatus } from '../Redux/employeeSlice';
+import { setOnlineStatus, deleteEmployee } from '../Redux/employeeSlice';
 
 import { EmployeeSectionProps } from '../types/employee';
 
@@ -32,7 +32,12 @@ export function EmployeeSection({ id, name, position, isOnline} : EmployeeSectio
                     <input type="checkbox" className={isOnline ? 'online' : ''} onClick={() => dispatch(setOnlineStatus(id, isOnline))}/>
                     <span className="slider"></span>
                 </label>
-                <HiDotsVertical size={20} color="#929292"/> 
+                <button >
+                    <FaEdit size={20} color="#929292"/> 
+                </button>
+                <button onClick={() => dispatch(deleteEmployee(id))}>
+                    <FaTrashAlt size={20} color="#929292"/> 
+                </button>
             </div>  
         </section>
     );

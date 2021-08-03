@@ -10,11 +10,6 @@ import '../styles/newEmployeeModal.scss';
 
 Modal.setAppElement('#root');
 
-type NewEmployeeModalProps = {
-    isOpen: boolean;
-    onRequestClose: () => void;
-}
-
 export function NewEmployeeModal() {
     const dispatch = useAppDispatch();
     const { isModalOpen } = useAppSelector(state => state.modalSlice);
