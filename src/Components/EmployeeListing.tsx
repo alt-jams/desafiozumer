@@ -3,20 +3,17 @@ import { api } from '../services/api';
 import { EmployeeSection } from './EmployeeSection';
 
 import '../styles/employeeListing.scss';
-
-type Employee = {
-    idFuncionario: number;
-    nome: string;
-    cargo: string;
-    online: boolean;
-}
+import { Employee } from '../types/employee';
+import { useAppDispatch, useAppSelector } from '../Redux/hooks';
+import { getEmployees } from '../Redux/employeeSlice';
 
 export function EmployeeListing() {
-    const [employees, setEmployees] = useState <Employee[]>([]);
+    const dispatch = useAppDispatch();
+    const { employees } = useAppSelector(state => state.employeeSlice);
 
-    useEffect(() => {
-        api.get<Employee[]>('funcionarios').then(response => setEmployees(response.data));
-    }, []);
+    useEffect(() => { 
+        dispatch(getEmployees());
+    }, [])
 
     function setOnlineStatus(id: number, isOnline: boolean) {
         api.patch(`/funcionarios/${id}`, {
@@ -28,7 +25,7 @@ export function EmployeeListing() {
                 "Content-Type": "application/json",
             }
         });
-        api.get<Employee[]>('funcionarios').then(response => setEmployees(response.data));
+        //api.get<Employee[]>('funcionarios').then(response => setEmployees(response.data));
     }
 
     return (
