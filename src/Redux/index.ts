@@ -1,8 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import employeeSlice from './employeeSlice';
+import modalSlice from './modalSlice';
 
 const rootReducer = combineReducers({
     employeeSlice,
+    modalSlice,
 })
 
 const store = configureStore({

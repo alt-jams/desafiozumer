@@ -2,8 +2,9 @@ import { FormEvent, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import Modal from 'react-modal';
 
-import { useAppDispatch } from '../Redux/hooks';
+import { useAppDispatch, useAppSelector } from '../Redux/hooks';
 import { createNewEmployee } from '../Redux/employeeSlice';
+import { setIsModalOpen } from '../Redux/modalSlice';
 
 import '../styles/newEmployeeModal.scss';
 
@@ -14,8 +15,9 @@ type NewEmployeeModalProps = {
     onRequestClose: () => void;
 }
 
-export function NewEmployeeModal({isOpen, onRequestClose} : NewEmployeeModalProps) {
+export function NewEmployeeModal() {
     const dispatch = useAppDispatch();
+    const { isModalOpen } = useAppSelector(state => state.modalSlice);
 
     const [employeePosition, setEmployeePosition] = useState("");
     const [isOnline, setIsOnline] = useState(false);
@@ -55,13 +57,13 @@ export function NewEmployeeModal({isOpen, onRequestClose} : NewEmployeeModalProp
 
     return(
         <Modal 
-            isOpen={isOpen}
-            onRequestClose={onRequestClose}
+            isOpen={isModalOpen}
+            onRequestClose={() => dispatch(setIsModalOpen(false))}
             overlayClassName="react-modal-overlay"
             className="react-modal-content"
         >
             <div className="top">
-                <button onClick={onRequestClose}>
+                <button onClick={() => dispatch(setIsModalOpen(false))}>
                     <IoClose />
                 </button>
                 <h4>Funcionário</h4>

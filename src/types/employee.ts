@@ -9,6 +9,10 @@ export interface EmployeeState {
     employees: Array<Employee>;
 }
 
+export interface ModalState {
+    isModalOpen: boolean;
+}
+
 export interface EmployeeSectionProps {
     id: number;
     name: string;

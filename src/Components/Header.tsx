@@ -1,10 +1,10 @@
 import '../styles/header.scss';
+import { setIsModalOpen } from '../Redux/modalSlice';
+import { useAppDispatch } from '../Redux/hooks';
 
-type HeaderProps = {
-    openNewEmployeeModal: () => void;
-}
+export function Header() {
+    const dispatch = useAppDispatch();
 
-export function Header({ openNewEmployeeModal } : HeaderProps) {
     return (
         <>
             <header>
@@ -13,7 +13,7 @@ export function Header({ openNewEmployeeModal } : HeaderProps) {
                     Gerencie seus funcionários, especialmente os atendentes
                 </strong>
             </header>
-            <button className="new-employee" onClick={openNewEmployeeModal}>
+            <button className="new-employee" onClick={() => dispatch(setIsModalOpen(true))}>
                 NOVO FUNCIONÁRIO
             </button>
         </>
