@@ -24,3 +24,13 @@ export const getEmployees = () => async (dispatch: (arg0: { payload: any; type: 
     dispatch( updateEmployees(response.data));
 }
 
+export const setOnlineStatus = ( employeeId: number, isOnline: boolean) => async (dispatch: (arg0: { payload: any; type: string }) => void) => {
+    await api.patch(`/funcionarios/${employeeId}`, {
+        online: !isOnline,
+    });
+    const response = await api.get<Employee[]>('funcionarios');
+    dispatch( updateEmployees(response.data));
+}
+
+
+
