@@ -1,26 +1,8 @@
 section {
-    margin: 1rem 1.5rem;
-    padding: 0.8rem;
-    background: #FFF;
-    border-radius: 0.25rem;
-    display: flex;
-    
     .user-data{
         display:flex;
         align-items: center;
         width: 40%;
-        
-        .user-img {
-            padding: 2rem;
-            max-width: 2rem;
-            background: #b6b6b6;
-            border-radius: 10rem;
-            margin-right: 1rem;
-        }
-
-        .user-name {
-            margin-left: 0.5rem;
-        }
         
         div span {
             font-weight: 500;
@@ -41,39 +23,5 @@ section {
                 border-radius: 1rem;
             }
         }
-
-        div p {
-            font-size: 1rem;
-            color: var(--text-light);
-            margin-top: 0.25rem;
-        }
     }
-
-    .is-online {
-        margin-left: 65%;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-
-        @media (max-width: 720px) {
-            margin-left: 32%;
-        } 
-
-        p {
-            color: var(--text-light);
-        } 
-        
-        button {
-            background: transparent;
-            border: 0;
-
-            &:hover {
-                filter: brightness(0.8);
-            }
-        }
-    }
-}
-
-div {
-    margin: auto 0;
 }

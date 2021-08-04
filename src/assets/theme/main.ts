@@ -17,7 +17,7 @@ const mainTheme = createTheme({
     h1: { fontSize: '3rem' },
     h3: { fontSize: '1.5rem', fontWeight: 500 },
     h4: { fontSize: '1.2rem', fontWeight: 500 },
-    h5: { fontSize: '0.70rem' },
+    h5: { fontSize: '1.00rem', fontWeight: 500  },
     h6: { fontSize: '0.50rem' }, 
     h2: { fontSize: '2rem', fontWeight: 500 },
     body1: {
