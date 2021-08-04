@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../services/api";
 import { Employee, EmployeeState } from "../types/employee";
 
@@ -12,7 +12,8 @@ const employeeSlice = createSlice({
     reducers: {
         updateEmployees: (state, action) => {
             state.employees = action.payload;
-        }
+        },
+
     }
 })
 
@@ -52,10 +53,25 @@ export const createNewEmployee = ( email: string,
     dispatch( updateEmployees(response.data));
 }
 
-export const deleteEmployee = ( employeeId: number
-) => async (dispatch: (arg0: { payload: any; type: string }) => void) => {
-    await api.delete(`/funcionarios/${employeeId}`);
+export const removeEmployee = createAsyncThunk(
+    'employee/delete',
+    async (
+      data: {
+        id: number
+      },
+      { rejectWithValue, dispatch }
+    ) => {
+      try {
+        const { id } = data;
+        await api.delete(`/funcionarios/${id}`);
 
-    const response = await api.get<Employee[]>('funcionarios');
-    dispatch( updateEmployees(response.data));
-}
+        const response = await api.get<Employee[]>('funcionarios');
+        dispatch( updateEmployees(response.data));
+        return true;
+
+      } catch (error) {
+        alert('Não foi possível deletar o funcionário!');
+        return rejectWithValue(error);
+      }
+    }
+  )

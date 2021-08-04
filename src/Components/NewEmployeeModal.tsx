@@ -207,7 +207,6 @@ const AntSwitch = withStyles(() =>
     },
     switchBase: {
       padding: 3,
-      paddingBottom: 2,
       color: '#FFF',
       '&$checked': {
         transform: 'translateX(22px)',

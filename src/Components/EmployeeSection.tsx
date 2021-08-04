@@ -1,7 +1,7 @@
 import DeleteIcon from '@material-ui/icons/Delete';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 import { useAppDispatch } from '../Redux/hooks';
-import { setOnlineStatus, deleteEmployee } from '../Redux/employeeSlice';
+import { setOnlineStatus, removeEmployee } from '../Redux/employeeSlice';
 import { EmployeeSectionProps } from '../types/employee';
 import { Box, makeStyles, Typography, Switch, withStyles, createStyles} from '@material-ui/core';
 
@@ -25,7 +25,7 @@ export function EmployeeSection({ id, name, position, isOnline} : EmployeeSectio
             <Box className={styles.isOnline}>
                 <Typography variant="body1">{isOnline ? 'Online' : 'Offline' }</Typography>
                 <AntSwitch checked={isOnline} onChange={() => dispatch(setOnlineStatus(id, isOnline))} />
-                    <DeleteIcon onClick={() => dispatch(deleteEmployee(id))} 
+                    <DeleteIcon onClick={() => dispatch(removeEmployee({id}))} 
                                 style={{ color: '#929292', cursor: 'pointer' }}
                     /> 
             </Box>  
