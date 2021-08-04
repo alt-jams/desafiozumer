@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { EmployeeSection } from './EmployeeSection';
 
-import '../styles/employeeListing.scss';
 import { useAppDispatch, useAppSelector } from '../Redux/hooks';
 import { getEmployees } from '../Redux/employeeSlice';
+import { Box, makeStyles } from '@material-ui/core';
 
 export function EmployeeListing() {
+    const styles = useStyles();
     const dispatch = useAppDispatch();
     const { employees } = useAppSelector(state => state.employeeSlice);
 
@@ -14,7 +15,7 @@ export function EmployeeListing() {
     }, [dispatch]);
 
     return (
-        <main>
+        <Box className={styles.main}>
             { employees.map(employee => {
                 return (
                     <EmployeeSection 
@@ -26,6 +27,12 @@ export function EmployeeListing() {
                     />
                 );
             })}        
-        </main>
+        </Box>
     );
 }
+
+const useStyles = makeStyles(() => ({ 
+    main: {
+        marginTop: 80,
+    }
+}))
