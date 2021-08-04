@@ -1,4 +1,4 @@
-import { FaTrashAlt, FaEdit } from 'react-icons/fa';
+import { FaTrashAlt} from 'react-icons/fa';
 import { MdSmartphone } from 'react-icons/md';
 
 import { useAppDispatch } from '../Redux/hooks';
@@ -32,9 +32,6 @@ export function EmployeeSection({ id, name, position, isOnline} : EmployeeSectio
                     <input type="checkbox" className={isOnline ? 'online' : ''} onClick={() => dispatch(setOnlineStatus(id, isOnline))}/>
                     <span className="slider"></span>
                 </label>
-                <button >
-                    <FaEdit size={20} color="#929292"/> 
-                </button>
                 <button onClick={() => dispatch(deleteEmployee(id))}>
                     <FaTrashAlt size={20} color="#929292"/> 
                 </button>

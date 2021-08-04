@@ -1,12 +1,12 @@
 import { FormEvent, useState } from 'react';
-import { IoClose } from 'react-icons/io5';
+import CloseIcon from '@material-ui/icons/Close';
 import Modal from 'react-modal';
 
 import { useAppDispatch, useAppSelector } from '../Redux/hooks';
 import { createNewEmployee } from '../Redux/employeeSlice';
 import { setIsModalOpen } from '../Redux/modalSlice';
 
-import '../styles/newEmployeeModal.scss';
+import { Button, NativeSelect, makeStyles, TextField, Typography, Link } from '@material-ui/core';
 
 Modal.setAppElement('#root');
 
@@ -50,76 +50,148 @@ export function NewEmployeeModal() {
         }
     }
 
+    const styles = useStyles()
+
     return(
         <Modal 
             isOpen={isModalOpen}
             onRequestClose={() => dispatch(setIsModalOpen(false))}
-            overlayClassName="react-modal-overlay"
-            className="react-modal-content"
+            overlayClassName={styles.reactModalOverlay}
+            className={styles.reactModalContent}
         >
-            <div className="top">
-                <button onClick={() => dispatch(setIsModalOpen(false))}>
-                    <IoClose />
-                </button>
-                <h4>Funcionário</h4>
+            <div className={styles.top}>
+                <CloseIcon color="primary" className={styles.close} onClick={() => dispatch(setIsModalOpen(false))}/>
+                <Typography variant="h4">Funcionário</Typography>
             </div>
 
             <form onSubmit ={ handleCreateEmployee }>
-                <h3>Novo Funcionário</h3>
-                <span>Se atente às indicações do formulário &#128512;</span>
+                <Typography variant="h3">Novo Funcionário</Typography>
+                <Typography variant="body1">Se atente às indicações do formulário &#128512;</Typography>
 
-                <fieldset>
-                    <select value="" onChange={(e) => setEmployeePosition(e.target.value)}>
+                    <NativeSelect className={styles.select} id="select" value="" onChange={(e) => setEmployeePosition(e.target.value)}>
                         <option value="" disabled hidden>Cargo</option>
                         <option value="Atendente">Atendente</option>
                         <option value="Entregador">Entregador</option>
                         <option value="Caixa">Caixa</option>
-                    </select>
+                    </NativeSelect>
 
-                    <p>Atendentes ou entregadores(as) possuirão acesso ao aplicativo de pedidos. 
-                        <a href=""> Acesse esse link no celular.</a>
-                    </p>
+                    <Typography variant="body2" className={styles.centralText}>Atendentes ou entregadores(as) possuirão acesso ao aplicativo de pedidos. 
+                        <Link href=""> Acesse esse link no celular.</Link>
+                    </Typography>
                     
-                    <div className="online-status">
+                    <div className={styles.onlineStatus}>
                         <label className="toggle">
                             <input type="checkbox" className={isOnline ? 'online' : ''} onClick={() => setIsOnline(!isOnline)}/>
                             <span className="slider"></span>
                         </label>
-                        <p>{isOnline ? 'Online' : 'Offline'}</p>
+                        <Typography variant="body1">{isOnline ? 'Online' : 'Offline'}</ Typography>
                     </div>
 
-                    <input
+                    <TextField
                         placeholder="Nome"
+                        className={styles.textFields}
                         onChange={(e) => setName(e.target.value)}
                     /> 
-                    <input
+                    <TextField
                          placeholder="Salário"
                          type="number"
+                         className={styles.textFields}
                          onChange={(e) => setSalary(Number(e.target.value))}
                     /> 
 
-                    <p>Não se preocupe ao preencher o salário, ele ficará visível no sistema somente com a senha mestre</p>
-                </fieldset>
+                    <Typography variant="body2" className={styles.centralText}>Não se preocupe ao preencher o salário, ele ficará visível no sistema somente com a senha mestre</Typography>
 
                 {
                     employeePosition === "Entregador" || employeePosition === "Atendente" ? 
-                    <fieldset>
-                        <p>Acesso ao aplicativo</p>
-                        <input
-                            placeholder="Email"
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <input
-                            placeholder="Senha para acessar o app"
-                            onChange={(e) => setPassword(e.target.value)}
-                            type="password"
-                        />
-                    </fieldset>  
-                    : <></> 
+                        <div className={styles.signIn}>
+                            <Typography variant="body2" className={styles.centralText}>Acesso ao aplicativo</Typography>
+                            <TextField
+                                className={styles.textFields}
+                                placeholder="Email"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <TextField
+                                className={styles.textFields}
+                                placeholder="Senha para acessar o app"
+                                onChange={(e) => setPassword(e.target.value)}
+                                type="password"
+                            />
+                        </div> 
+                    : ''
                 }
-
-                <button type="submit" className="submit-button">PRONTO!</button>
+                <Button className={styles.submitButton}
+                        variant="contained" 
+                        color="primary" 
+                        disableElevation
+                        type="submit">
+                        PRONTO!
+                </Button>  
             </form>
         </Modal>
     );
 }
+
+const useStyles = makeStyles(() => ({ 
+    reactModalOverlay: {
+        background: 'rgba(0,0,0,0.1)',  
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    reactModalContent: {
+        width:'30%',
+        height: '100%',
+        maxWidth: 576,
+        background: '#f4f4f4',
+        padding: 25,
+        position: 'fixed',
+        top: 0,
+        right: 0,
+    },
+    top: {
+        display: 'flex',
+        gap: 10,
+        marginBottom: 20,
+    },
+    close: {
+        cursor: 'pointer',
+    },
+    submitButton: {
+      width: '100%',
+      padding: 8,
+      marginTop: 18,
+    },
+    textFields: {
+        background: '#e7e7e7',
+        width: '100%',
+        padding: 8,
+        marginTop: 18,
+        borderRadius: 5,
+    },
+    select: {
+        background: '#e7e7e7',
+        width: '100%',
+        padding: 8,
+        marginTop: 18,
+        borderRadius: 5,
+    },
+    centralText: {
+        marginTop: 5,
+        textAlign: 'center',
+    },
+    onlineStatus: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        marginTop: 18,
+    },
+    signIn: {
+        marginTop: 25,
+    }, 
+}))
+  

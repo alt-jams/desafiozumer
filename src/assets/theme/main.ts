@@ -14,17 +14,19 @@ const mainTheme = createTheme({
     },
   },
   typography: {
-    /* h1: { fontSize: '3rem' },
-    h3: { fontSize: '1.5rem' },
-    h4: { fontSize: '1.2rem' },
+    h1: { fontSize: '3rem' },
+    h3: { fontSize: '1.5rem', fontWeight: 500 },
+    h4: { fontSize: '1.2rem', fontWeight: 500 },
     h5: { fontSize: '0.70rem' },
-    h6: { fontSize: '0.50rem' }, */
+    h6: { fontSize: '0.50rem' }, 
     h2: { fontSize: '2rem', fontWeight: 500 },
     body1: {
       opacity: 0.75,
+      lineHeight: 1.1,
     },
     body2: {
       opacity: 0.6,
+      lineHeight: 1.2,
     },
   },
   overrides: {
