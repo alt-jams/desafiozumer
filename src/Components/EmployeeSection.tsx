@@ -3,7 +3,7 @@ import SmartphoneIcon from '@material-ui/icons/Smartphone';
 import { useAppDispatch } from '../Redux/hooks';
 import { setOnlineStatus, deleteEmployee } from '../Redux/employeeSlice';
 import { EmployeeSectionProps } from '../types/employee';
-import { Box, makeStyles, Typography } from '@material-ui/core';
+import { Box, makeStyles, Typography, Switch, withStyles, createStyles} from '@material-ui/core';
 
 export function EmployeeSection({ id, name, position, isOnline} : EmployeeSectionProps) {
     const dispatch = useAppDispatch();
@@ -24,10 +24,7 @@ export function EmployeeSection({ id, name, position, isOnline} : EmployeeSectio
 
             <Box className={styles.isOnline}>
                 <Typography variant="body1">{isOnline ? 'Online' : 'Offline' }</Typography>
-                <label className="toggle">    
-                    <input type="checkbox" className={isOnline ? 'online' : ''} onClick={() => dispatch(setOnlineStatus(id, isOnline))}/>
-                    <span className="slider"></span>
-                </label>
+                <AntSwitch checked={isOnline} onChange={() => dispatch(setOnlineStatus(id, isOnline))} />
                     <DeleteIcon onClick={() => dispatch(deleteEmployee(id))} 
                                 style={{ color: '#929292', cursor: 'pointer' }}
                     /> 
@@ -38,7 +35,7 @@ export function EmployeeSection({ id, name, position, isOnline} : EmployeeSectio
 
 const useStyles = makeStyles(() => ({ 
     userContainer: {
-        margin: 10,
+        margin: 15,
         padding: 10,
         background:'#FFF',
         borderRadius: 5,
@@ -72,4 +69,40 @@ const useStyles = makeStyles(() => ({
         alignItems: 'center',
         gap: 8,
     }
-}))
+}));
+
+const AntSwitch = withStyles(() =>
+  createStyles({
+    root: {
+      width: 47,
+      height: 25,
+      padding: 0,
+      display: 'flex',
+    },
+    switchBase: {
+      padding: 3,
+      paddingBottom: 2,
+      color: '#FFF',
+      '&$checked': {
+        transform: 'translateX(21px)',
+        color: '#FFF',
+        '& + $track': {
+          opacity: 1,
+          backgroundColor: '#22ec15',
+          borderColor: '#22ec15',
+        },
+      },
+    },
+    thumb: {
+      width: 20,
+      height: 20,
+    },
+    track: {
+      border: `1px solid #fb2a3c`,
+      borderRadius: 40,
+      opacity: 1,
+      backgroundColor: '#fb2a3c',
+    },
+    checked: {},
+  }),
+)(Switch);

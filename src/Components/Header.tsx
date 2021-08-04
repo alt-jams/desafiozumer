@@ -48,6 +48,7 @@ const useStyles = makeStyles(() => ({
     },
     button: {
         position: 'absolute',
+        padding: 8,
         top: 130,
         right: 22,
     },

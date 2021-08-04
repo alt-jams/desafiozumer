@@ -33,6 +33,6 @@ export function EmployeeListing() {
 
 const useStyles = makeStyles(() => ({ 
     main: {
-        marginTop: 80,
+        marginTop: 70,
     }
 }))

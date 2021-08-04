@@ -6,7 +6,8 @@ import { useAppDispatch, useAppSelector } from '../Redux/hooks';
 import { createNewEmployee } from '../Redux/employeeSlice';
 import { setIsModalOpen } from '../Redux/modalSlice';
 
-import { Button, NativeSelect, makeStyles, TextField, Typography, Link } from '@material-ui/core';
+import { Button, NativeSelect, makeStyles, TextField, Typography, Link, createStyles, Switch } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
 
 Modal.setAppElement('#root');
 
@@ -68,7 +69,7 @@ export function NewEmployeeModal() {
                 <Typography variant="h3">Novo Funcionário</Typography>
                 <Typography variant="body1">Se atente às indicações do formulário &#128512;</Typography>
 
-                    <NativeSelect className={styles.select} id="select" value="" onChange={(e) => setEmployeePosition(e.target.value)}>
+                    <NativeSelect className={styles.select} id="select" value={employeePosition} onChange={(e) => setEmployeePosition(e.target.value)}>
                         <option value="" disabled hidden>Cargo</option>
                         <option value="Atendente">Atendente</option>
                         <option value="Entregador">Entregador</option>
@@ -80,23 +81,22 @@ export function NewEmployeeModal() {
                     </Typography>
                     
                     <div className={styles.onlineStatus}>
-                        <label className="toggle">
-                            <input type="checkbox" className={isOnline ? 'online' : ''} onClick={() => setIsOnline(!isOnline)}/>
-                            <span className="slider"></span>
-                        </label>
+                        <AntSwitch checked={isOnline} onChange={() => setIsOnline(!isOnline)} />
                         <Typography variant="body1">{isOnline ? 'Online' : 'Offline'}</ Typography>
                     </div>
 
                     <TextField
                         placeholder="Nome"
+                        value={name}
                         className={styles.textFields}
                         onChange={(e) => setName(e.target.value)}
                     /> 
                     <TextField
-                         placeholder="Salário"
-                         type="number"
-                         className={styles.textFields}
-                         onChange={(e) => setSalary(Number(e.target.value))}
+                        placeholder="Salário"
+                        value={salary}
+                        type="number"
+                        className={styles.textFields}
+                        onChange={(e) => setSalary(Number(e.target.value))}
                     /> 
 
                     <Typography variant="body2" className={styles.centralText}>Não se preocupe ao preencher o salário, ele ficará visível no sistema somente com a senha mestre</Typography>
@@ -108,10 +108,12 @@ export function NewEmployeeModal() {
                             <TextField
                                 className={styles.textFields}
                                 placeholder="Email"
+                                value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                             <TextField
                                 className={styles.textFields}
+                                value={password}
                                 placeholder="Senha para acessar o app"
                                 onChange={(e) => setPassword(e.target.value)}
                                 type="password"
@@ -193,5 +195,41 @@ const useStyles = makeStyles(() => ({
     signIn: {
         marginTop: 25,
     }, 
-}))
+}));
+
+const AntSwitch = withStyles(() =>
+  createStyles({
+    root: {
+      width: 47,
+      height: 23,
+      padding: 0,
+      display: 'flex',
+    },
+    switchBase: {
+      padding: 3,
+      paddingBottom: 2,
+      color: '#FFF',
+      '&$checked': {
+        transform: 'translateX(22px)',
+        color: '#FFF',
+        '& + $track': {
+          opacity: 1,
+          backgroundColor: '#22ec15',
+          borderColor: '#22ec15',
+        },
+      },
+    },
+    thumb: {
+      width: 18,
+      height: 18,
+    },
+    track: {
+      border: `1px solid #fb2a3c`,
+      borderRadius: 60,
+      opacity: 1,
+      backgroundColor: '#fb2a3c',
+    },
+    checked: {},
+  }),
+)(Switch);
   
