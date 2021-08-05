@@ -1,7 +1,5 @@
-import { FormEvent, useState } from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from 'react-modal';
-import { EmployeeForm } from '../../types/employee';
 
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import { createNewEmployee } from '../../Redux/employeeSlice';
@@ -12,6 +10,7 @@ import { Button, NativeSelect, TextField, Typography, Link } from '@material-ui/
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { EmployeeForm } from '../../types/employee';
 
 Modal.setAppElement('#root');
 
@@ -19,49 +18,42 @@ export function NewEmployeeModal() {
     const dispatch = useAppDispatch();
     const { isModalOpen } = useAppSelector(state => state.modalSlice);
 
+    const formValidationSchema = yup.object({
+        employeePosition: yup.string().required("Selecione o cargo do funcionário"),
+        name: yup.string().required("Digite o nome do funcionário"),
+        salary: yup.number().positive("Digite o salário do funcionário").required("Digite o salário do funcionário"),
+    });
+
     const initialValues: EmployeeForm = { 
         online: false,
         employeePosition: "",
         name: "",
         salary: 0,
         email: "",
-        password: "" 
+        password: ""
     };
 
-    const [employeePosition, setEmployeePosition] = useState("");
-    const [isOnline, setIsOnline] = useState(false);
-    const [name, setName] = useState("");
-    const [salary, setSalary] = useState(0);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const formik = useFormik({
+        initialValues: initialValues,
+        onSubmit: (values) => {
+          handleCreateEmployee();
+        },
+        validationSchema: formValidationSchema
+    });
 
-    function handleCreateEmployee(e: FormEvent){
-        e.preventDefault();
-
-        if (employeePosition === "" || name.trim() === ""  || salary === 0) {
-            alert('Digite todos os dados para cadastrar o funcionário');
-        } 
-        
-        else {
-            dispatch(createNewEmployee(
-                email,
-                password,
-                name,
-                isOnline,
-                salary,
-                employeePosition
-            )).then(() => {
-                setEmployeePosition("");
-                setIsOnline(false);
-                setName("");
-                setSalary(0);
-                setEmail("");
-                setPassword("");
-                alert('Cadastro efetuado com sucesso!');
-            }).catch(() => {
-                alert('Erro no cadastro');
-            })
-        }
+    function handleCreateEmployee(){
+        dispatch(createNewEmployee(
+            formik.values.email,
+            formik.values.password,
+            formik.values.name,
+            formik.values.online,
+            formik.values.salary,
+            formik.values.employeePosition
+        )).then(() => {
+            alert('Cadastro efetuado com sucesso!');
+        }).catch(() => {
+            alert('Erro no cadastro');
+        })
     }
 
     const styles = useStyles()
@@ -78,57 +70,74 @@ export function NewEmployeeModal() {
                 <Typography variant="h4">Funcionário</Typography>
             </div>
 
-            <form onSubmit ={ handleCreateEmployee }>
+            <form onSubmit={formik.handleSubmit}>
                 <Typography variant="h3">Novo Funcionário</Typography>
                 <Typography variant="body1">Se atente às indicações do formulário &#128512;</Typography>
 
-                    <NativeSelect className={styles.select} id="select" value={employeePosition} onChange={(e) => setEmployeePosition(e.target.value)}>
+                    <NativeSelect className={styles.select} 
+                                    id="employeePosition" 
+                                    value={formik.values.employeePosition} 
+                                    onChange={formik.handleChange}
+                                    error={formik.touched.employeePosition && Boolean(formik.errors.employeePosition)}
+                    >
                         <option value="" disabled hidden>Cargo</option>
                         <option value="Atendente">Atendente</option>
                         <option value="Entregador">Entregador</option>
                         <option value="Caixa">Caixa</option>
                     </NativeSelect>
+                    <Typography variant="body2" className={styles.error}>{formik.touched.name && formik.errors.name}</Typography>
 
                     <Typography variant="body2" className={styles.centralText}>Atendentes ou entregadores(as) possuirão acesso ao aplicativo de pedidos. 
                         <Link href=""> Acesse esse link no celular.</Link>
                     </Typography>
                     
                     <div className={styles.onlineStatus}>
-                        <AntSwitch checked={isOnline} onChange={() => setIsOnline(!isOnline)} />
-                        <Typography variant="body1">{isOnline ? 'Online' : 'Offline'}</ Typography>
+                        <AntSwitch checked={formik.values.online} 
+                                    value={formik.values.online} 
+                                    onChange={formik.handleChange} 
+                                    id="online"/>
+                        <Typography variant="body1">{formik.values.online ? 'Online' : 'Offline'}</ Typography>
                     </div>
 
                     <TextField
                         placeholder="Nome"
-                        value={name}
+                        id="name"
+                        value={formik.values.name}
                         className={styles.textFields}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={formik.handleChange}
+                        error={formik.touched.name && Boolean(formik.errors.name)}
+                        helperText={formik.touched.name && formik.errors.name}
                     /> 
                     <TextField
                         placeholder="Salário"
-                        value={salary}
+                        id="salary"
+                        value={formik.values.salary}
                         type="number"
                         className={styles.textFields}
-                        onChange={(e) => setSalary(Number(e.target.value))}
+                        onChange={formik.handleChange}
+                        error={formik.touched.salary && Boolean(formik.errors.salary)}
+                        helperText={formik.touched.salary && formik.errors.salary}
                     /> 
 
                     <Typography variant="body2" className={styles.centralText}>Não se preocupe ao preencher o salário, ele ficará visível no sistema somente com a senha mestre</Typography>
 
                 {
-                    employeePosition === "Entregador" || employeePosition === "Atendente" ? 
+                    formik.values.employeePosition === "Entregador" || formik.values.employeePosition === "Atendente" ? 
                         <div className={styles.signIn}>
                             <Typography variant="body2" className={styles.centralText}>Acesso ao aplicativo</Typography>
                             <TextField
                                 className={styles.textFields}
                                 placeholder="Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                id="email"
+                                value={formik.values.email}
+                                onChange={formik.handleChange}
                             />
                             <TextField
                                 className={styles.textFields}
-                                value={password}
+                                value={formik.values.password}
+                                id="password"
                                 placeholder="Senha para acessar o app"
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={formik.handleChange}
                                 type="password"
                             />
                         </div> 

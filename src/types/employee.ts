@@ -9,9 +9,9 @@ export interface EmployeeForm {
     name: string;
     employeePosition: string;
     online: boolean;
+    salary: number;
     email?: string;
     password?: string;
-    salary: number;
 }
 
 

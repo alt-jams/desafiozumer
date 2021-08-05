@@ -33,8 +33,8 @@ export const setOnlineStatus = ( employeeId: number, isOnline: boolean) => async
     dispatch( updateEmployees(response.data));
 }
 
-export const createNewEmployee = ( email: string,
-                                    password: string,
+export const createNewEmployee = ( email: string | undefined,
+                                    password: string | undefined,
                                     name: string,
                                     isOnline: boolean,
                                     salary: number,

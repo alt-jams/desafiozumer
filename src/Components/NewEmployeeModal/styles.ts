@@ -63,6 +63,12 @@ export const useStyles = makeStyles(() => ({
     signIn: {
         marginTop: 25,
     }, 
+    error: {
+      color: '#FF0000',
+      marginBottom: 8,
+      opacity: 1,
+      fontSize: 13,
+    }
 }));
 
 export const AntSwitch = withStyles(() =>
