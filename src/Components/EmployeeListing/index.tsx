@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { EmployeeSection } from './EmployeeSection';
+import { EmployeeSection } from '../EmployeeSection';
 
-import { useAppDispatch, useAppSelector } from '../Redux/hooks';
-import { getEmployees } from '../Redux/employeeSlice';
-import { Box, makeStyles } from '@material-ui/core';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
+import { getEmployees } from '../../Redux/employeeSlice';
+import { Box } from '@material-ui/core';
+import { useStyles } from './styles';
 
 export function EmployeeListing() {
     const styles = useStyles();
@@ -31,8 +32,3 @@ export function EmployeeListing() {
     );
 }
 
-const useStyles = makeStyles(() => ({ 
-    main: {
-        marginTop: 70,
-    }
-}))

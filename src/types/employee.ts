@@ -5,6 +5,16 @@ export interface Employee {
     online: boolean;
 }
 
+export interface EmployeeForm {
+    name: string;
+    employeePosition: string;
+    online: boolean;
+    email?: string;
+    password?: string;
+    salary: number;
+}
+
+
 export interface EmployeeState {
     employees: Array<Employee>;
 }
